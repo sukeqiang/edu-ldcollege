@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+ 	<properties  url="file:///C:/work/develop/eclipse_workspace/edu-ldcollege-parent/edu-ldcollege-service/src/main/resources/dataSource.properties"/>
+	<classPathEntry
+		location="C:\Users\IBM_ADMIN\.m2\repository\mysql\mysql-connector-java\5.1.40\mysql-connector-java-5.1.40.jar" />
+
+	<context id="context1" targetRuntime="MyBatis3Simple">
+		<commentGenerator>
+			<property name="suppressAllComments" value="false" />
+			<property name="suppressDate" value="true" />
+			<property name="javaFileEncoding" value="UTF-8" />
+		</commentGenerator>
+		<jdbcConnection driverClass="${live.driverClassName}"
+			connectionURL="${live.url}" userId="${live.username}"
+			password="${live.password}">
+		</jdbcConnection>
+		
+		<javaModelGenerator targetPackage="edu.ldcollege.domain"
+			targetProject="C:/work/develop/eclipse_workspace/edu-ldcollege-parent/edu-ldcollege-service/src/main/java/edu/ldcollege">
+		</javaModelGenerator>
+		<javaClientGenerator targetPackage="edu.ldcollege.mapping"
+			targetProject="C:/work/develop/eclipse_workspace/edu-ldcollege-parent/edu-ldcollege-service/src/main/java/edu/ldcollege" 
+			type="ANNOTATEDMAPPER">
+		</javaClientGenerator>
+		<table tableName="LdHomeWork" domainObjectName="LdHomeWork" />
+	</context>
+</generatorConfiguration>
