@@ -32,7 +32,7 @@ public class LdHomeworkUploadController {
 		return "ldhomework-upload.html";
 	}
 	
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST, produces = "text/html;charset=UTF-8") 
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST) 
 	public @ResponseBody UploadJSONModel uploadFileHandler(@RequestParam("classId") String classId,
 			@RequestParam("lessionId") String lessionId, @RequestParam("userId") String userId,
 			@RequestParam("file") MultipartFile file) { 
