@@ -1,11 +1,9 @@
 package edu.ldcollege.web.ctrl;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,29 +11,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.ldcollege.domain.LdHomeWork;
+import edu.ldcollege.service.LdHomeworkService;
+import edu.ldcollege.utils.FileUploadingUtil;
+import edu.ldcollege.utils.SpringContextUtil;
+import edu.ldcollege.viewmodel.UploadJSONModel;
+
 @Controller
 public class LdHomeworkUploadController {
 
+	@Autowired
+	@Value("${upload.filepath}")
+	private String filePath ;
+	
+	@Resource(name = "ldHomeworkService")
+	LdHomeworkService ldHomeworkService;
+	
 	@RequestMapping("/view/ldhomework")
 	public String viewLldhomework() {
 		return "ldhomework-upload.html";
 	}
 	
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST, produces = "text/html;charset=UTF-8") 
-	public @ResponseBody String uploadFileHandler(@RequestParam("file") MultipartFile file) { 
+	public @ResponseBody UploadJSONModel uploadFileHandler(@RequestParam("classId") String classId,
+			@RequestParam("lessionId") String lessionId, @RequestParam("userId") String userId,
+			@RequestParam("file") MultipartFile file) { 
+		UploadJSONModel upload = SpringContextUtil.getBean("uploadJSONModel",UploadJSONModel.class);
 		if (!file.isEmpty()) {
             try {
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists())
-                    dir.mkdirs();
-                file.transferTo(new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename()));
-                return "{\"result\":\"ok\"}";
+            	LdHomeWork ldHomeWork = ldHomeworkService.getLdhomeworkByCLUId(Integer.parseInt(classId),
+            			Integer.parseInt(lessionId),Integer.parseInt(userId));
+            	if (ldHomeWork == null) {
+            		ldHomeWork = SpringContextUtil.getBean("ldHomeWorkBean",LdHomeWork.class);
+                	ldHomeWork.setClassId(Long.parseLong(classId));
+                	ldHomeWork.setLessionId(Long.parseLong(lessionId));
+                	ldHomeWork.setUserId(Long.parseLong(userId));
+                	ldHomeWork.setNegativeCount(0);
+                	ldHomeWork.setStarCount(0);
+                	ldHomeWork.setCorrectFlag("0");
+                	ldHomeWork.setBestFlag("2");
+                	ldHomeWork.setHomeworkFilepath(filePath);
+                	ldHomeWork.setHomeworkFilename(file.getOriginalFilename());
+            	} else {
+            		FileUploadingUtil.removeFile(filePath, ldHomeWork.getHomeworkFilename());
+            	}
+            	
+            	ldHomeworkService.saveLdHomeWorkByOnDuplicateKeyUpdate(ldHomeWork);
+            	FileUploadingUtil.uploadFile(filePath, file);
+            	upload.setResult("1");
             } catch (Exception e) {
-                return "File upload file";
+            	e.printStackTrace();
+            	upload.setResult("0");
             }
-        } else {
-            return "File is empty";
+        }else {
+        	upload.setResult("2");
         }
+		return upload;
 	}
 }

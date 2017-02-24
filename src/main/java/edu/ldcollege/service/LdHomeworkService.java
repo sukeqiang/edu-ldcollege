@@ -12,6 +12,8 @@ import edu.ldcollege.domain.LdHomeWork;
 import edu.ldcollege.domain.LdHomeWorkFB;
 import edu.ldcollege.mapping.LdHomeWorkFBMapper;
 import edu.ldcollege.mapping.LdHomeWorkMapper;
+import edu.ldcollege.utils.SpringContextUtil;
+import edu.ldcollege.viewmodel.ViewModel;
 
 @Component("ldHomeworkService")
 @Transactional
@@ -23,13 +25,27 @@ public class LdHomeworkService {
 	@Autowired
 	private LdHomeWorkFBMapper ldHomeWorkFBMapper;
 	
-	public List<LdHomeWork> selectLdhomeworkByClassIdLessionId(Integer classId,Integer lessionId,
+	@Transactional(propagation = Propagation.NEVER)
+	public ViewModel<LdHomeWork> selectLdhomeworkByClassIdLessionId(Integer classId,Integer lessionId,
 			String orderBy,String sortOrder) {
-		return ldHomeWorkMapper.selectLdhomeworkByClassIdLessionId(classId,lessionId,orderBy,sortOrder);
+		@SuppressWarnings("unchecked")
+		ViewModel<LdHomeWork> view = SpringContextUtil.getBean("viewModel",ViewModel.class);
+		List<LdHomeWork> list = ldHomeWorkMapper.selectLdhomeworkByClassIdLessionId(classId,lessionId,orderBy,sortOrder);
+		view.setRows(list);
+		return view;
 	}
 	
-	public void saveLdHomeWorkByOnDuplicateKeyUpdate(LdHomeWork ldHomeWork) {
-		ldHomeWorkMapper.saveByOnDuplicateKeyUpdate(ldHomeWork);
+	public LdHomeWork getLdhomeworkByCLUId(Integer classId, Integer lessionId, Integer userId) {
+		List<LdHomeWork> list = ldHomeWorkMapper.selectLdhomeworkByClassIdLessionIdUserId(classId,lessionId,userId);
+		if (list == null || list.size()<=0) {
+			return null;
+		}
+		return list.get(0);
+	}
+	
+	
+	public int saveLdHomeWorkByOnDuplicateKeyUpdate(LdHomeWork ldHomeWork) {
+		return ldHomeWorkMapper.saveByOnDuplicateKeyUpdate(ldHomeWork);
 	}
 	
 	public void saveCommentHomeWork(LdHomeWorkFB comment, Integer homeworkId, int negativeStarFlag) {

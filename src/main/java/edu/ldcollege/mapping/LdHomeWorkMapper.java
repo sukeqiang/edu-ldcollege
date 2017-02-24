@@ -40,7 +40,7 @@ public interface LdHomeWorkMapper {
         "values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, ",
         "#{classId,jdbcType=BIGINT}, #{lessionId,jdbcType=BIGINT}, ",
         "#{homeworkFilepath,jdbcType=VARCHAR}, #{homeworkFilename,jdbcType=VARCHAR}, ",
-        "#{createDate,jdbcType=TIMESTAMP}, #{correctFlag,jdbcType=CHAR}, ",
+        "#{createDate,jdbcType=DATE}, #{correctFlag,jdbcType=CHAR}, ",
         "#{starCount,jdbcType=INTEGER}, #{negativeCount,jdbcType=INTEGER}, ",
         "#{bestFlag,jdbcType=CHAR})"
     })
@@ -66,7 +66,7 @@ public interface LdHomeWorkMapper {
         @Result(column="lession_id", property="lessionId", jdbcType=JdbcType.BIGINT),
         @Result(column="homework_filepath", property="homeworkFilepath", jdbcType=JdbcType.VARCHAR),
         @Result(column="homework_filename", property="homeworkFilename", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_date", property="createDate", jdbcType=JdbcType.DATE),
         @Result(column="correct_flag", property="correctFlag", jdbcType=JdbcType.CHAR),
         @Result(column="star_count", property="starCount", jdbcType=JdbcType.INTEGER),
         @Result(column="negative_count", property="negativeCount", jdbcType=JdbcType.INTEGER),
@@ -93,7 +93,7 @@ public interface LdHomeWorkMapper {
         @Result(column="lession_id", property="lessionId", jdbcType=JdbcType.BIGINT),
         @Result(column="homework_filepath", property="homeworkFilepath", jdbcType=JdbcType.VARCHAR),
         @Result(column="homework_filename", property="homeworkFilename", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_date", property="createDate", jdbcType=JdbcType.DATE),
         @Result(column="correct_flag", property="correctFlag", jdbcType=JdbcType.CHAR),
         @Result(column="star_count", property="starCount", jdbcType=JdbcType.INTEGER),
         @Result(column="negative_count", property="negativeCount", jdbcType=JdbcType.INTEGER),
@@ -114,7 +114,7 @@ public interface LdHomeWorkMapper {
           "lession_id = #{lessionId,jdbcType=BIGINT},",
           "homework_filepath = #{homeworkFilepath,jdbcType=VARCHAR},",
           "homework_filename = #{homeworkFilename,jdbcType=VARCHAR},",
-          "create_date = #{createDate,jdbcType=TIMESTAMP},",
+          "create_date = #{createDate,jdbcType=DATE},",
           "correct_flag = #{correctFlag,jdbcType=CHAR},",
           "star_count = #{starCount,jdbcType=INTEGER},",
           "negative_count = #{negativeCount,jdbcType=INTEGER},",
@@ -133,7 +133,7 @@ public interface LdHomeWorkMapper {
         "update ldhomework",
         "set homework_filepath = #{homeworkFilepath,jdbcType=VARCHAR},",
           "homework_filename = #{homeworkFilename,jdbcType=VARCHAR},",
-          "create_date = #{createDate,jdbcType=TIMESTAMP},",
+          "create_date = #{createDate,jdbcType=DATE},",
           "correct_flag = #{correctFlag,jdbcType=CHAR},",
           "star_count = #{starCount,jdbcType=INTEGER},",
           "negative_count = #{negativeCount,jdbcType=INTEGER},",
@@ -165,7 +165,7 @@ public interface LdHomeWorkMapper {
     
     @Select({
         "select",
-        "id, user_id, class_id, lession_id, homework_filepath, homework_filename, create_date, ",
+        "id, user_id, class_id, lession_id, homework_filepath, homework_filename, create_date , ",
         "correct_flag, star_count, negative_count, best_flag",
         "from ldhomework where ",
         "class_id = #{classId,jdbcType=BIGINT} and lession_id = #{lessionId,jdbcType=BIGINT} ",
@@ -178,7 +178,7 @@ public interface LdHomeWorkMapper {
         @Result(column="lession_id", property="lessionId", jdbcType=JdbcType.BIGINT),
         @Result(column="homework_filepath", property="homeworkFilepath", jdbcType=JdbcType.VARCHAR),
         @Result(column="homework_filename", property="homeworkFilename", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_date", property="createDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="correct_flag", property="correctFlag", jdbcType=JdbcType.CHAR),
         @Result(column="star_count", property="starCount", jdbcType=JdbcType.INTEGER),
         @Result(column="negative_count", property="negativeCount", jdbcType=JdbcType.INTEGER),
@@ -188,6 +188,30 @@ public interface LdHomeWorkMapper {
     		@Param("lessionId") Integer lessionId,
     		@Param("orderBy") String orderBy,
     		@Param("sortOrder") String sortOrder);
+    
+    @Select({
+        "select",
+        "id, user_id, class_id, lession_id, homework_filepath, homework_filename, create_date , ",
+        "correct_flag, star_count, negative_count, best_flag",
+        "from ldhomework where ",
+        "class_id = #{classId,jdbcType=BIGINT} and lession_id = #{lessionId,jdbcType=BIGINT} ",
+        "and user_id = #{userId,jdbcType=BIGINT}"
+    })
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
+        @Result(column="class_id", property="classId", jdbcType=JdbcType.BIGINT),
+        @Result(column="lession_id", property="lessionId", jdbcType=JdbcType.BIGINT),
+        @Result(column="homework_filepath", property="homeworkFilepath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="homework_filename", property="homeworkFilename", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_date", property="createDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="correct_flag", property="correctFlag", jdbcType=JdbcType.CHAR),
+        @Result(column="star_count", property="starCount", jdbcType=JdbcType.INTEGER),
+        @Result(column="negative_count", property="negativeCount", jdbcType=JdbcType.INTEGER),
+        @Result(column="best_flag", property="bestFlag", jdbcType=JdbcType.CHAR)
+    })
+    List<LdHomeWork> selectLdhomeworkByClassIdLessionIdUserId(@Param("classId") Integer classId,
+    		@Param("lessionId") Integer lessionId,@Param("userId") Integer userId);
     
     @Update({"<script>",
         "update ldhomework",

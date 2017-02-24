@@ -1,5 +1,11 @@
 package edu.ldcollege.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
+@Component("ldHomeWorkFBBean")
+@Scope(scopeName = "prototype",proxyMode = ScopedProxyMode.NO)
 public class LdHomeWorkFB {
     /**
      *

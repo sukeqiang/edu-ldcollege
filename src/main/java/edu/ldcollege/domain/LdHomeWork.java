@@ -2,6 +2,12 @@ package edu.ldcollege.domain;
 
 import java.util.Date;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
+@Component("ldHomeWorkBean")
+@Scope(scopeName = "prototype",proxyMode = ScopedProxyMode.NO)
 public class LdHomeWork {
     /**
      *

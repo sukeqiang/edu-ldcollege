@@ -1,18 +1,17 @@
 package edu.ldcollege.web.ctrl;
 
-import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.alibaba.fastjson.JSON;
 
 import edu.ldcollege.domain.LdHomeWork;
 import edu.ldcollege.service.LdHomeworkService;
+import edu.ldcollege.viewmodel.ViewModel;
 
 @Controller
 public class LdHomeworkFeedBackController {
@@ -26,9 +25,11 @@ public class LdHomeworkFeedBackController {
 		return "ldhomework-fb-list.html";
 	}
 	
-	@RequestMapping(value = "/ldHomeWorkList",produces = "application/json;charset=UTF-8")
-	public @ResponseBody String ldHomeWorkList() {
-		List<LdHomeWork> ldHomeWorkList = ldHomeworkService.selectLdhomeworkByClassIdLessionId(6, 10, "create_date", "desc");
-		return "{\"total\":" + ldHomeWorkList.size() + ",\"rows\":" + JSON.toJSONString(ldHomeWorkList) + "}";
+	@RequestMapping(value = "/ldHomeWorkList",method = RequestMethod.GET)
+	public @ResponseBody ViewModel<LdHomeWork> ldHomeWorkList(@RequestParam("classId") String classId,
+			@RequestParam("lessionId") String lessionId) {
+		ViewModel<LdHomeWork> viewModel = ldHomeworkService.selectLdhomeworkByClassIdLessionId(Integer.parseInt(classId), 
+				Integer.parseInt(lessionId), "create_date", "desc");
+		return viewModel;
 	}
 }
