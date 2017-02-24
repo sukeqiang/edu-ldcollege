@@ -25,7 +25,7 @@ public class LdHomeworkService {
 	@Autowired
 	private LdHomeWorkFBMapper ldHomeWorkFBMapper;
 	
-	@Transactional(propagation = Propagation.NEVER)
+	@Transactional(readOnly = true)
 	public ViewModel<LdHomeWork> selectLdhomeworkByClassIdLessionId(Integer classId,Integer lessionId,
 			String orderBy,String sortOrder) {
 		@SuppressWarnings("unchecked")
@@ -35,6 +35,7 @@ public class LdHomeworkService {
 		return view;
 	}
 	
+	@Transactional(readOnly = true)
 	public LdHomeWork getLdhomeworkByCLUId(Integer classId, Integer lessionId, Integer userId) {
 		List<LdHomeWork> list = ldHomeWorkMapper.selectLdhomeworkByClassIdLessionIdUserId(classId,lessionId,userId);
 		if (list == null || list.size()<=0) {

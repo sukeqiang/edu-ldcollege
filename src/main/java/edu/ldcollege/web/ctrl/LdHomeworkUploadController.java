@@ -54,6 +54,8 @@ public class LdHomeworkUploadController {
                 	ldHomeWork.setHomeworkFilename(file.getOriginalFilename());
             	} else {
             		FileUploadingUtil.removeFile(filePath, ldHomeWork.getHomeworkFilename());
+            		ldHomeWork.setHomeworkFilepath(filePath);
+            		ldHomeWork.setHomeworkFilename(file.getOriginalFilename());
             	}
             	
             	ldHomeworkService.saveLdHomeWorkByOnDuplicateKeyUpdate(ldHomeWork);
