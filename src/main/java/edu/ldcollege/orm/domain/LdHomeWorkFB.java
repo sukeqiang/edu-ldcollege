@@ -1,4 +1,4 @@
-package edu.ldcollege.domain;
+package edu.ldcollege.orm.domain;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

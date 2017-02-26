@@ -7,11 +7,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(scanBasePackages = "edu.ldcollege.web.ctrl.**,"
 		+ "edu.ldcollege.service.**,"
-		+ "edu.ldcollege.viewmodel.**,"
-		+ "edu.ldcollege.aspectj.**,"
-		+ "edu.ldcollege.domain.**,"
+		+ "edu.ldcollege.web.view.**,"
+		+ "edu.ldcollege.component.aspectj.**,"
+		+ "edu.ldcollege.orm.domain.**,"
 		+ "edu.ldcollege.utils.**")
-@MapperScan("edu.ldcollege.mapping")
+@MapperScan("edu.ldcollege.orm.mapping")
 @EnableTransactionManagement
 @EnableAspectJAutoProxy(proxyTargetClass=true,exposeProxy=true)
 public class ProWebConfiguration {

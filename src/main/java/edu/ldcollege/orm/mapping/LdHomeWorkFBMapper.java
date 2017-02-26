@@ -1,6 +1,5 @@
-package edu.ldcollege.mapping;
+package edu.ldcollege.orm.mapping;
 
-import edu.ldcollege.domain.LdHomeWorkFB;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -9,6 +8,8 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
+
+import edu.ldcollege.orm.domain.LdHomeWorkFB;
 
 public interface LdHomeWorkFBMapper {
     /**

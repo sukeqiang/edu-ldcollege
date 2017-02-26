@@ -1,4 +1,4 @@
-package edu.ldcollege.viewmodel;
+package edu.ldcollege.web.view;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("uploadJSONModel")
 @Scope(scopeName = "prototype",proxyMode = ScopedProxyMode.NO)
-public class UploadJSONModel {
+public class ResponseCommonJSONModel {
 
 	private String result;
 	

@@ -1,4 +1,4 @@
-package edu.ldcollege.viewmodel;
+package edu.ldcollege.web.view;
 
 import java.util.List;
 

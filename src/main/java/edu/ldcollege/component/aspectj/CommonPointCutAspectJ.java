@@ -1,4 +1,4 @@
-package edu.ldcollege.aspectj;
+package edu.ldcollege.component.aspectj;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;

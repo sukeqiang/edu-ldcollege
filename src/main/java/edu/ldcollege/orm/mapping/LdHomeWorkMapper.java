@@ -1,6 +1,5 @@
-package edu.ldcollege.mapping;
+package edu.ldcollege.orm.mapping;
 
-import edu.ldcollege.domain.LdHomeWork;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -10,6 +9,8 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
+
+import edu.ldcollege.orm.domain.LdHomeWork;
 
 public interface LdHomeWorkMapper {
     /**
@@ -218,7 +219,6 @@ public interface LdHomeWorkMapper {
         "set correct_flag = 1,",
         "<if test=\"flag==0\"> negative_count = negative_count+1,</if>",  
         "<if test=\"flag==1\"> star_count = star_count+1,</if>",
-        "<if test=\"flag==2\"></if>",
         "best_flag = #{bestFlag,jdbcType=CHAR}",
         "where id = #{id,jdbcType=BIGINT}",
         "</script>"

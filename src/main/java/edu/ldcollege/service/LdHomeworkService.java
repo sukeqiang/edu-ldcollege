@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.ldcollege.domain.LdHomeWork;
-import edu.ldcollege.domain.LdHomeWorkFB;
-import edu.ldcollege.mapping.LdHomeWorkFBMapper;
-import edu.ldcollege.mapping.LdHomeWorkMapper;
+import edu.ldcollege.orm.domain.LdHomeWork;
+import edu.ldcollege.orm.domain.LdHomeWorkFB;
+import edu.ldcollege.orm.mapping.LdHomeWorkFBMapper;
+import edu.ldcollege.orm.mapping.LdHomeWorkMapper;
 import edu.ldcollege.utils.SpringContextUtil;
-import edu.ldcollege.viewmodel.ViewModel;
+import edu.ldcollege.web.view.ViewModel;
 
 @Component("ldHomeworkService")
 @Transactional
@@ -58,8 +58,13 @@ public class LdHomeworkService {
 		ldHomeWorkMapper.updateCommentByPrimaryKey(homeworkId, negativeStarFlag, bestFlag);
 	}
 	
-	@Transactional(propagation = Propagation.NEVER)
+	@Transactional(readOnly = true)
 	public List<LdHomeWorkFB> getAllComment(Integer homeworkId) {
 		return ldHomeWorkFBMapper.selectByhomeworkId(homeworkId);
+	}
+	
+	@Transactional(readOnly = true)
+	public LdHomeWork selectByPrimaryKey(Long id) {
+		return ldHomeWorkMapper.selectByPrimaryKey(id);
 	}
 }

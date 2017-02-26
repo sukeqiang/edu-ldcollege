@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import edu.ldcollege.domain.LdHomeWork;
+import edu.ldcollege.orm.domain.LdHomeWork;
 import edu.ldcollege.service.LdHomeworkService;
 import edu.ldcollege.utils.FileUploadingUtil;
 import edu.ldcollege.utils.SpringContextUtil;
-import edu.ldcollege.viewmodel.UploadJSONModel;
+import edu.ldcollege.web.view.ResponseCommonJSONModel;
 
 @Controller
 public class LdHomeworkUploadController {
@@ -33,10 +33,10 @@ public class LdHomeworkUploadController {
 	}
 	
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST) 
-	public @ResponseBody UploadJSONModel uploadFileHandler(@RequestParam("classId") String classId,
+	public @ResponseBody ResponseCommonJSONModel uploadFileHandler(@RequestParam("classId") String classId,
 			@RequestParam("lessionId") String lessionId, @RequestParam("userId") String userId,
 			@RequestParam("file") MultipartFile file) { 
-		UploadJSONModel upload = SpringContextUtil.getBean("uploadJSONModel",UploadJSONModel.class);
+		ResponseCommonJSONModel upload = SpringContextUtil.getBean("uploadJSONModel",ResponseCommonJSONModel.class);
 		if (!file.isEmpty()) {
             try {
             	LdHomeWork ldHomeWork = ldHomeworkService.getLdhomeworkByCLUId(Integer.parseInt(classId),

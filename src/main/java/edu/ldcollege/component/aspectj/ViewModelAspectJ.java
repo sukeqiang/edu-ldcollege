@@ -1,4 +1,4 @@
-package edu.ldcollege.aspectj;
+package edu.ldcollege.component.aspectj;
 
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -6,13 +6,13 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import edu.ldcollege.viewmodel.ViewModel;
+import edu.ldcollege.web.view.ViewModel;
 
 @Component
 @Aspect
-public class viewModelAspectJ {
+public class ViewModelAspectJ {
 	
-	@Around("edu.ldcollege.aspectj.CommonPointCutAspectJ.transHandler()")
+	@Around("edu.ldcollege.component.aspectj.CommonPointCutAspectJ.transHandler()")
 	public Object viewModelWrap(ProceedingJoinPoint pjp) throws Throwable{
 		Object obj = pjp.proceed();
 		if(obj instanceof ViewModel && obj != null) {
