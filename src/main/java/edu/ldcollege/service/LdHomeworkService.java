@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import edu.ldcollege.orm.mapping.LdHomeWorkMapper;
 import edu.ldcollege.utils.SpringContextUtil;
 import edu.ldcollege.web.view.ViewModel;
 
-@Component("ldHomeworkService")
+@Service("ldHomeworkService")
 @Transactional
 public class LdHomeworkService {
 
