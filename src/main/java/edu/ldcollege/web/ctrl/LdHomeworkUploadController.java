@@ -29,7 +29,7 @@ public class LdHomeworkUploadController {
 	
 	@RequestMapping("/view/ldhomework")
 	public String viewLldhomework() {
-		return "ldhomework-upload.html";
+		return "ldhomework-upload";
 	}
 	
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST) 

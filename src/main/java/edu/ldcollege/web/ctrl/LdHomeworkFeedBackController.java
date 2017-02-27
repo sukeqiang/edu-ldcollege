@@ -41,7 +41,7 @@ public class LdHomeworkFeedBackController {
 		if(StringUtils.isBlank(myId) || StringUtils.isBlank(classId) || StringUtils.isBlank(lessionId)) {
 			
 		}
-		return "ldhomework-fb-list.html?myId=".concat(myId)
+		return "ldhomework-fb-list?myId=".concat(myId)
 				.concat("&classId=").concat(classId)
 				.concat("&lessionId=").concat(lessionId);
 	}
