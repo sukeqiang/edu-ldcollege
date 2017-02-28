@@ -17,6 +17,7 @@ public class UserLoginController {
 	@RequestMapping(value = "/signin",method = RequestMethod.POST)
 	public @ResponseBody String signin(@RequestParam("login") String login,
 			@RequestParam("password") String password) {
-		return "{\"is_error\":null,\"is_reload_page\":null,\"new_location\":null,\"msgs\":[{\"body\":\"Login required\",\"type\":\"3\"}]}";
+		
+		return "{\"is_error\":null,\"is_reload_page\":null,\"new_location\":\"/view/ldhomework\",\"msgs\":[{\"body\":\"Login required\",\"type\":\"3\"}]}";
 	}
 }
