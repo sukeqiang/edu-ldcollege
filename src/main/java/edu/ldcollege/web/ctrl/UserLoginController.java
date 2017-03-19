@@ -20,4 +20,11 @@ public class UserLoginController {
 		
 		return "{\"is_error\":null,\"is_reload_page\":null,\"new_location\":\"/view/ldhomework\",\"msgs\":[{\"body\":\"Login required\",\"type\":\"3\"}]}";
 	}
+	
+	@RequestMapping(value = "/distSession",method = RequestMethod.POST)
+	public @ResponseBody String distSession(@RequestParam("login") String login,
+			@RequestParam("password") String password) {
+		
+		return "{\"is_error\":null,\"is_reload_page\":null,\"new_location\":\"/view/ldhomework\",\"msgs\":[{\"body\":\"Login required\",\"type\":\"3\"}]}";
+	}
 }

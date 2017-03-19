@@ -1,8 +1,12 @@
 package edu.ldcollege.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.binding.MapperProxy;
+import org.springframework.aop.framework.AdvisedSupport;
+import org.springframework.aop.framework.AopProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -28,7 +32,7 @@ public class LdHomeworkService {
 	
 	@Transactional(readOnly = true)
 	public ViewModel<LdHomeWork> selectLdhomeworkByClassIdLessionId(Integer classId,Integer lessionId,
-			String orderBy,String sortOrder) {
+			String orderBy,String sortOrder){
 		@SuppressWarnings("unchecked")
 		ViewModel<LdHomeWork> view = SpringContextUtil.getBean("viewModel",ViewModel.class);
 		List<LdHomeWork> list = ldHomeWorkMapper.selectLdhomeworkByClassIdLessionId(classId,lessionId,orderBy,sortOrder);

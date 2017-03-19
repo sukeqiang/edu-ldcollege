@@ -8,7 +8,7 @@ public class EduLdcollegeApp {
 
 	public static void main(String[] args) {
 		System.setProperty("spring.resources.static-locations", 
-				"file:C:/work/develop/edu-ldcollege-web/static/");
+				"file:D:/develop/java_workspace/edu-ldcollege-static/static/");
 		SpringApplication.run(ProWebConfiguration.class, args);
 	}
 

@@ -3,12 +3,15 @@ package edu.ldcollege.web.ctrl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.aop.framework.AdvisedSupport;
+import org.springframework.aop.framework.AopProxy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +49,8 @@ public class LdHomeworkFeedBackController {
 				.concat("&lessionId=").concat(lessionId);
 	}
 	
+	  
+	 
 	@RequestMapping(value = "/ldHomeWorkList",method = RequestMethod.GET)
 	public @ResponseBody ViewModel<LdHomeWork> ldHomeWorkList(@RequestParam("classId") String classId,
 			@RequestParam("lessionId") String lessionId) {
